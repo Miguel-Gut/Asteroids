@@ -1,10 +1,11 @@
 #still works? able to print wanted results but still shows an error
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 import pygame
-from logger import log_state
+from logger import log_state, log_event
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+import sys
 
 def main():
     pygame.init()
@@ -35,7 +36,11 @@ def main():
         for obj in drawable:
             obj.draw(screen)
         pygame.display.flip()
-
+        for asteroid in asteroids:
+            if asteroid.collides_with(player) == True:
+                log_event("player_hit")
+                print ("Game over!")
+                sys.exit()
         #sets the delta time limit to 60 FPS
         dt = clock.tick(60) / 1000
 
