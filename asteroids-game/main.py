@@ -23,7 +23,6 @@ def main():
 
     #screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    display_score = font.render("Score: "+ str(score), True, white, black)
 
     #makes groups to manage the diffrent variables
     updatable = pygame.sprite.Group()
@@ -48,6 +47,7 @@ def main():
                 return
         updatable.update(dt)
         screen.fill("black")
+        display_score = font.render("Score: "+ str(score), True, white, black)
         screen.blit(display_score, (10,10))
         for obj in drawable:
             obj.draw(screen)
@@ -65,7 +65,7 @@ def main():
                     shot.kill()
                     #adds points to the score
                     score += 10
-                    screen.blit(display_score, (10,10))
+
 
 
         #sets the delta time limit to 60 FPS
