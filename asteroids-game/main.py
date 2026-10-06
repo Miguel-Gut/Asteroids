@@ -13,7 +13,18 @@ def main():
     #makes a clock
     clock = pygame.time.Clock()
     dt = 0.0
+    #will make the score value and track it
+    score = 0
+    #Colers
+    white = (255,255,255)
+    black = (0,0,0)
+    #score font and size
+    font = pygame.font.Font('freesansbold.ttf', 20)
+
+    #screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    display_score = font.render("Score: "+ str(score), True, white, black)
+
     #makes groups to manage the diffrent variables
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -30,12 +41,14 @@ def main():
 
     while True:
         log_state()
+
         for event in pygame.event.get():
             #will check if the user pressed the X to close the window and closes it
             if event.type == pygame.QUIT:
                 return
         updatable.update(dt)
         screen.fill("black")
+        screen.blit(display_score, (10,10))
         for obj in drawable:
             obj.draw(screen)
         pygame.display.flip()
@@ -50,6 +63,9 @@ def main():
                     log_event("asteroid_shot")
                     asteroid.split()
                     shot.kill()
+                    #adds points to the score
+                    score += 10
+                    screen.blit(display_score, (10,10))
 
 
         #sets the delta time limit to 60 FPS

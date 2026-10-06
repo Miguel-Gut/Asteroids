@@ -3,6 +3,7 @@ from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_SHOOT_COOLDOWN_SECONDS, 
 from circleshape import CircleShape
 import pygame
 from shot import Shot
+import sys
 
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -43,6 +44,9 @@ class Player(CircleShape):
             else:
                 self.player_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS
                 self.shoot()
+        if keys[pygame.K_ESCAPE]:
+            sys.exit()
+
 
     #Will prevent player from being stuck
     def move(self, dt):
