@@ -7,9 +7,14 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 import sys
 from shot import Shot
+#force sounds into the game
+import os
 
 def main():
     pygame.init()
+    #mixer for game
+    os.environ["SDL_AUDIODRIVER"] = "pulseaudio"
+    pygame.mixer.init()
     #makes a clock
     clock = pygame.time.Clock()
     dt = 0.0
@@ -20,7 +25,9 @@ def main():
     black = (0,0,0)
     #score font and size
     font = pygame.font.Font('freesansbold.ttf', 20)
-
+    #sounds for game
+    explosion_sound = pygame.mixer.Sound("explosion.wav")
+    die_sound = pygame.mixer.Sound("hitHurt.wav")
     #screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -56,6 +63,7 @@ def main():
             if asteroid.collides_with(player) == True:
                 log_event("player_hit")
                 print ("Game over!")
+                die_sound.play()
                 sys.exit()
             #will check if a shot has colided with an asteroid.
             for shot in shots:
@@ -65,6 +73,7 @@ def main():
                     shot.kill()
                     #adds points to the score
                     score += 10
+                    explosion_sound.play()
 
 
 
