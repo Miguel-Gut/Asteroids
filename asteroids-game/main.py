@@ -62,8 +62,16 @@ def main():
         for asteroid in asteroids:
             if asteroid.collides_with(player) == True:
                 log_event("player_hit")
-                print ("Game over!")
                 die_sound.play()
+                screen.fill("black")
+                game_over_display = font.render("GAME OVER", True, (255,0,0))
+                final_score_display = font.render(f"FINAL SCORE: {score}", True, (255,255,255))
+                screen.blit(game_over_display, (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50))
+                screen.blit(final_score_display, (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2))
+                #updates to the new screen
+                pygame.display.flip()
+                #give 5 secs before window closes
+                pygame.time.wait(5000)
                 sys.exit()
             #will check if a shot has colided with an asteroid.
             for shot in shots:
